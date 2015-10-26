@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".View_Snap" android:label="View Snap"></activity>
+        <activity android:name=".Take_Snap" android:label="Take Snap"></activity>
     </application>
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 </manifest>

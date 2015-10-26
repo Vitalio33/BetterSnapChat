@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/view"
+    tools:context=".View_Snap">
+
+    <!--android:background="@drawable/view_snap_default_bg" -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logging area\n"
+        android:id="@+id/logArea"
+        android:maxLines="20"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <VideoView
+        android:id="@+id/view_snap_video_area"
+        android:layout_width="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_height="fill_parent" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/view_snap_save"
+        android:onClick="saveSnap"
+        android:layout_alignTop="@+id/view_snap_delete"
+        android:layout_toLeftOf="@+id/view_snap_delete"
+        android:layout_toStartOf="@+id/view_snap_delete"
+        android:layout_marginRight="25dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/view_snap_delete"
+        android:onClick="deleteSnap"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reply"
+        android:id="@+id/view_snap_reply"
+        android:onClick="reply"
+        android:layout_alignTop="@+id/view_snap_delete"
+        android:layout_toRightOf="@+id/view_snap_delete"
+        android:layout_toEndOf="@+id/view_snap_delete"
+        android:layout_marginLeft="25dp" />
+
+</RelativeLayout>

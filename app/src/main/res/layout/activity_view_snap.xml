@@ -5,18 +5,6 @@
     android:id="@+id/view"
     tools:context=".View_Snap">
 
-    <!--android:background="@drawable/view_snap_default_bg" -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logging area\n"
-        android:id="@+id/logArea"
-        android:maxLines="20"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <VideoView
         android:id="@+id/view_snap_video_area"
         android:layout_width="fill_parent"

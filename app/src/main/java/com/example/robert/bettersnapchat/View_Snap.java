@@ -1,6 +1,7 @@
 package com.example.robert.bettersnapchat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.VideoView;
 
 import java.io.File;
@@ -18,13 +20,17 @@ import java.io.IOException;
 //This class is used for handling the 'View Snap' screen
 public class View_Snap extends AppCompatActivity {
 
+    public final static String EXT_STORAGE_DIR_NAME = "Test_SnapChat_Folder";
+    final int sdk = android.os.Build.VERSION.SDK_INT;
+
     Button saveBtn;
     Button deleteBtn;
     Button replyBtn;
     File currentSnap;
     String filePath;
     VideoView video_area;
-    final static String EXT_STORAGE_DIR_NAME = "Test_SnapChat_Folder";
+
+    EditText textField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,10 @@ public class View_Snap extends AppCompatActivity {
         replyBtn = (Button) findViewById(R.id.view_snap_reply);
         video_area = (VideoView) findViewById(R.id.view_snap_video_area);
 
+        textField = (EditText) findViewById(R.id.textField);
+        textField.setTextColor(Color.WHITE);
+        textField.setVisibility(View.GONE);
+
         //bring each of these to front so that the video area does not cover them
         saveBtn.bringToFront();
         deleteBtn.bringToFront();
@@ -47,24 +57,25 @@ public class View_Snap extends AppCompatActivity {
         try {
             String files[] = getFilesDir().list(); //list all files in app default directory, store in array
             for (int i = 0; i < files.length; ++i) { //loop through them (in case there are multiple) until a snap file is found
-                if(files[i].equals("current_snap.png")) //picture file
-                {
+                if(files[i].equals("current_snap.png") || files[i].equals("current_snap.jpeg") || files[i].equals("current_snap.mp4")) {
                     filePath = getFilesDir() + "/" + files[i];
-                    loadPictureSnap(filePath);
                     currentSnap = new File(filePath);
-                    break;
-                }
-                else if(files[i].equals("current_snap.mp4")) //video file
-                {
-                    filePath = getFilesDir() + "/" + files[i];
-                    loadVideoSnap(filePath);
-                    currentSnap = new File(filePath);
+                    if (Sample_TakeSnap.currentUserTextValue != null && !Sample_TakeSnap.currentUserTextValue.equals("")) {
+                        textField.setText(Sample_TakeSnap.currentUserTextValue);
+                        textField.setVisibility(View.VISIBLE);
+                        textField.setEnabled(false);
+                    }
+
+                    if (files[i].equals("current_snap.png") || files[i].equals("current_snap.jpeg")) //picture file
+                        loadPictureSnap(filePath);
+                    else
+                        loadVideoSnap(filePath);
                     break;
                 }
 
                 //if we've gone through all the files and did not find the standard picture or video format, print error
                 if((i+1) == files.length){
-                    Utility.generateAlertDialog(this, "Error", "Did not find current_snap.png or current_snap.mp4");
+                    Utility.generateAlertDialog(this, "Error", "Did not find current snap");
                     currentSnap = null;
                 }
             }
@@ -72,6 +83,7 @@ public class View_Snap extends AppCompatActivity {
         catch (Exception e) {
             Utility.generateAlertDialog(this, "Error", e.getMessage());
         }
+
     }
 
     @Override
@@ -96,10 +108,9 @@ public class View_Snap extends AppCompatActivity {
     }
 
     //if snap is detected as a .png , set background as the png
-    public void loadPictureSnap(String filePath)
+    private void loadPictureSnap(String filePath)
     {
         Drawable new_bg = Drawable.createFromPath(filePath);
-        final int sdk = android.os.Build.VERSION.SDK_INT;
         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             video_area.setBackgroundDrawable(new_bg);
         }
@@ -109,7 +120,7 @@ public class View_Snap extends AppCompatActivity {
     }
 
     //if snap is detected as a .mp4 , play the video on loadup
-    public void loadVideoSnap(String filePath){
+    private void loadVideoSnap(String filePath){
         video_area.setVideoPath(filePath);
         video_area.start();
     }

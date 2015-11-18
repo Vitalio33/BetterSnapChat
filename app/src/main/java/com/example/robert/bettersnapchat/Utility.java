@@ -1,9 +1,8 @@
-package com.example.ryan.seniorprojecttest;
+package com.example.robert.bettersnapchat;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,6 +14,8 @@ import java.nio.channels.FileChannel;
  */
 //Class for static methods that can be used in multiple places in the app
 public class Utility {
+
+    //Below variables and methods are a sloppy way of restoring background images on screen orientation change
 
     //utility in case files need to be cleared in app's main dir , can easily change path if need be
     public static void deleteFilesInAppDir(Context context)
@@ -67,5 +68,15 @@ public class Utility {
         inChannel.transferTo(0, inChannel.size(), outChannel);
         inStream.close();
         outStream.close();
+    }
+
+    public static boolean isSupportedExtension(String ext, String[] comparisonArray)
+    {
+        for(int i = 0; i < comparisonArray.length; ++i)
+        {
+            if(ext.equals(comparisonArray[i]))
+                return true;
+        }
+        return false;
     }
 }

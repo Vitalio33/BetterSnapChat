@@ -1,8 +1,5 @@
 package com.example.robert.bettersnapchat;
 
-/**
- * Created by Robert on 10/16/2015.
- */
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;

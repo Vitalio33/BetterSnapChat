@@ -5,18 +5,6 @@
     android:id="@+id/view"
     tools:context=".View_Snap">
 
-    <!--android:background="@drawable/view_snap_default_bg" -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logging area\n"
-        android:id="@+id/logArea"
-        android:maxLines="20"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <VideoView
         android:id="@+id/view_snap_video_area"
         android:layout_width="fill_parent"
@@ -57,5 +45,22 @@
         android:layout_toRightOf="@+id/view_snap_delete"
         android:layout_toEndOf="@+id/view_snap_delete"
         android:layout_marginLeft="25dp" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:inputType="textNoSuggestions"
+        android:text=""
+        android:textSize="25sp"
+        android:id="@+id/textField"
+        android:background="#66000000"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elegantTextHeight="false" />
 
 </RelativeLayout>

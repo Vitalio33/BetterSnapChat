@@ -1,8 +1,5 @@
 package com.example.robert.bettersnapchat;
 
-/**
- * Created by Robert on 10/16/2015.
- */
 import android.annotation.SuppressLint;
 import android.content.CursorLoader;
 import android.database.Cursor;
@@ -70,22 +67,22 @@ public class InboxFragment extends Fragment  implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-    //    getLoaderManager().initLoader(0, null, this);
+        //    getLoaderManager().initLoader(0, null, this);
         // Gets the ListView from the View list of the parent activity
 
-    //    mContactsList =
-    //            (ListView) getActivity().findViewById(R.layout.inbox_list);
+        //    mContactsList =
+        //            (ListView) getActivity().findViewById(R.layout.inbox_list);
         // Gets a CursorAdapter
-    //    mCursorAdapter = new SimpleCursorAdapter(
-     //           getActivity(),
-     //           R.layout.inbox_item,
-     //           null,
-     //           FROM_COLUMNS, TO_IDS,
-      //          0);
+        //    mCursorAdapter = new SimpleCursorAdapter(
+        //           getActivity(),
+        //           R.layout.inbox_item,
+        //           null,
+        //           FROM_COLUMNS, TO_IDS,
+        //          0);
         // Sets the adapter for the ListView
-       // mContactsList.setAdapter(mCursorAdapter);
+        // mContactsList.setAdapter(mCursorAdapter);
 
-       // mContactsList.setOnItemClickListener(this);
+        // mContactsList.setOnItemClickListener(this);
 
     }
 

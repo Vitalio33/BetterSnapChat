@@ -32,11 +32,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //logArea = (TextView) findViewById(R.id.logArea);
-        //logArea.setTextColor(Color.RED);
-        logWrite("app directory: " + getFilesDir());
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Inbox"));
         tabLayout.addTab(tabLayout.newTab().setText("Group"));
@@ -63,12 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -89,31 +88,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void openPicture(View view)
     {
-        File dest = new File(getFilesDir(), "current_snap.png");
-        File source = new File("/storage/sdcard0/Pictures/test_pic.png");
-        try {
-           fileCopy(source, dest);
-        }
-        catch(Exception e){
-            logWrite(e.getMessage());
+        File currentSnap = new File(getFilesDir() + "/current_snap.jpeg");
+        if(currentSnap.exists())
+        {}
+        else {
+            File dest = new File(getFilesDir(), "current_snap.png");
+            File source = new File("/storage/sdcard0/Pictures/test_pic.png");
+            try {
+                Utility.fileCopy(source, dest);
+            } catch (Exception e) {
+                logWrite(e.getMessage());
+            }
         }
         startActivity(new Intent(MainActivity.this, View_Snap.class));
-
-
     }
 
     public void openVideo(View view)
     {
-        File dest = new File(getFilesDir(), "current_snap.mp4");
-        File source = new File("/storage/sdcard0/Pictures/test_video.mp4");
-        try {
-           fileCopy(source, dest);
-        }
-        catch(Exception e){
-            logWrite(e.getMessage());
+        File currentSnap = new File(getFilesDir() + "/current_snap.mp4");
+        if(currentSnap.exists())
+        {}
+        else {
+            File dest = new File(getFilesDir(), "current_snap.mp4");
+            File source = new File("/storage/sdcard0/Pictures/test_video.mp4");
+            try {
+                Utility.fileCopy(source, dest);
+            } catch (Exception e) {
+                logWrite(e.getMessage());
+            }
         }
         startActivity(new Intent(MainActivity.this, View_Snap.class));
     }
+    /*
     public void fileCopy(File src, File dst) throws IOException {
         FileInputStream inStream = new FileInputStream(src);
         FileOutputStream outStream = new FileOutputStream(dst);
@@ -122,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         inChannel.transferTo(0, inChannel.size(), outChannel);
         inStream.close();
         outStream.close();
-    }
+    }*/
     public void exit_app(View view)
     {
         android.os.Process.killProcess(android.os.Process.myPid());

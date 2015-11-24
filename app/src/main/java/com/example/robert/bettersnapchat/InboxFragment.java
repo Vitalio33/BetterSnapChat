@@ -58,34 +58,39 @@ public class InboxFragment extends Fragment  implements
     // An adapter that binds the result Cursor to the ListView
     private SimpleCursorAdapter mCursorAdapter;
 
-    public InboxFragment() {}
+    public InboxFragment() {
+
+
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.inbox_fragment, container, false);
+
     }
 
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-    //    getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(0, null, this);
         // Gets the ListView from the View list of the parent activity
 
-    //    mContactsList =
-    //            (ListView) getActivity().findViewById(R.layout.inbox_list);
-        // Gets a CursorAdapter
-    //    mCursorAdapter = new SimpleCursorAdapter(
-     //           getActivity(),
-     //           R.layout.inbox_item,
-     //           null,
-     //           FROM_COLUMNS, TO_IDS,
-      //          0);
-        // Sets the adapter for the ListView
-       // mContactsList.setAdapter(mCursorAdapter);
 
-       // mContactsList.setOnItemClickListener(this);
+
+        mContactsList = (ListView) getActivity().findViewById(android.R.id.list);
+        // Gets a CursorAdapter
+        mCursorAdapter = new SimpleCursorAdapter(
+                getActivity(),
+                R.layout.inbox_item,
+                null,
+                FROM_COLUMNS, TO_IDS,
+                0);
+        // Sets the adapter for the ListView
+        mContactsList.setAdapter(mCursorAdapter);
+
+        mContactsList.setOnItemClickListener(this);
 
     }
 
@@ -129,7 +134,7 @@ public class InboxFragment extends Fragment  implements
                 PROJECTION,
                 SELECTION,
                 mSelectionArgs,
-                null
+               ContactsContract.Contacts.DISPLAY_NAME+" ASC"
         );
     }
 

@@ -1,6 +1,10 @@
 package com.example.robert.bettersnapchat;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
@@ -17,6 +22,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Inbox"));
         tabLayout.addTab(tabLayout.newTab().setText("Group"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
+
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -89,15 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void openPicture(View view)
     {
-        File dest = new File(getFilesDir(), "current_snap.png");
-        File source = new File("/storage/sdcard0/Pictures/test_pic.png");
-        try {
-           fileCopy(source, dest);
-        }
-        catch(Exception e){
-            logWrite(e.getMessage());
-        }
-        startActivity(new Intent(MainActivity.this, View_Snap.class));
+
+        startActivity(new Intent(MainActivity.this, Take_Snap.class));
 
 
     }
@@ -127,4 +130,45 @@ public class MainActivity extends AppCompatActivity {
     {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
+
+    public void create_group(View view)
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Title");
+        alert.setMessage("Message");
+
+// Set an EditText view to get user input
+        final EditText groupInput = new EditText(this);
+        alert.setView(groupInput);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = groupInput.getText().toString();
+                GroupDbHelper dbHelp = new GroupDbHelper(getApplicationContext());
+
+                SQLiteDatabase db = dbHelp.getWritableDatabase();
+
+                ContentValues values = new ContentValues();
+
+
+                values.put(GroupDatabase.Groups.COLUMN_NAME_GROUP_NAME, value);
+                values.put(GroupDatabase.Groups.COLUMN_NAME_INBOX, "1");
+
+                long defId;
+                defId = db.insert(GroupDatabase.Groups.TABLE_NAME, null, values);
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+
+    }
+
+
 }
